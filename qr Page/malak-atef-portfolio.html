@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malak Atef — Software Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600&family=Playfair+Display:wght@400;500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:      #0f0f0f;
+      --bg2:     #161616;
+      --bg3:     #1e1e1e;
+      --border:  rgba(255,255,255,0.08);
+      --border2: rgba(255,255,255,0.15);
+      --text:    #f0ede8;
+      --muted:   #888580;
+      --hint:    #4a4744;
+      --accent:  #c9a96e;
+      --radius:  3px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    body.ar { font-family: 'Cairo', sans-serif; direction: rtl; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 3rem;
+      background: rgba(15,15,15,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 0.5px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px; font-weight: 700; color: var(--text);
+    }
+    .ar .nav-logo { font-family: 'Amiri', serif; font-size: 22px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; transition: color 0.2s;
+    }
+    .ar .nav-links a { text-transform: none; letter-spacing: 0; font-size: 14px; }
+    .nav-links a:hover { color: var(--accent); }
+    .lang-btn {
+      padding: 6px 18px;
+      border: 0.5px solid var(--accent); border-radius: 20px;
+      background: transparent; color: var(--accent);
+      font-size: 13px; font-family: inherit; font-weight: 500;
+      cursor: pointer; transition: background 0.2s, color 0.2s; white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--accent); color: #0f0f0f; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 300px;
+      gap: 4rem; align-items: center;
+      padding: 8rem 3rem 4rem;
+      border-bottom: 0.5px solid var(--border);
+      max-width: 1100px; margin: 0 auto;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(201,169,110,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.5rem;
+    }
+    .ar .hero-eyebrow { text-transform: none; letter-spacing: 0; font-size: 13px; }
+    .hero-eyebrow::before {
+      content: ''; display: block; width: 28px; height: 1px;
+      background: var(--accent); flex-shrink: 0;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 62px; font-weight: 700;
+      line-height: 1.05; letter-spacing: -1px; margin-bottom: 1.75rem;
+    }
+    .ar .hero h1 { font-family: 'Amiri', serif; font-size: 54px; letter-spacing: 0; line-height: 1.25; }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .ar .hero h1 em { font-style: normal; }
+    .hero-desc { font-size: 16px; color: var(--muted); max-width: 460px; line-height: 1.8; margin-bottom: 2.5rem; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-gold {
+      padding: 12px 28px; background: var(--accent); color: #0f0f0f;
+      border: none; border-radius: var(--radius);
+      font-family: inherit; font-size: 13px; font-weight: 500;
+      text-decoration: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s; display: inline-block;
+    }
+    .btn-gold:hover { background: #d4b47a; transform: translateY(-1px); }
+    .btn-ghost {
+      padding: 12px 28px; background: transparent; color: var(--text);
+      border: 0.5px solid var(--border2); border-radius: var(--radius);
+      font-family: inherit; font-size: 13px; font-weight: 400;
+      text-decoration: none; cursor: pointer;
+      transition: border-color 0.2s, color 0.2s; display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* PHOTO */
+    .hero-photo-wrap { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+    .hero-photo {
+      width: 250px; height: 310px; border-radius: var(--radius);
+      border: 0.5px solid var(--border2); overflow: hidden; background: var(--bg3);
+    }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .photo-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+    }
+    .photo-placeholder .initials {
+      font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700; color: var(--hint);
+      width: 88px; height: 88px; border-radius: 50%;
+      border: 0.5px solid var(--border2);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .photo-placeholder p { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--hint); text-align: center; padding: 0 1rem; }
+    .hero-social { display: flex; gap: 10px; }
+    .social-pill {
+      padding: 6px 14px; border: 0.5px solid var(--border); border-radius: 20px;
+      font-size: 11px; color: var(--muted); text-decoration: none; transition: border-color 0.2s, color 0.2s;
+    }
+    .social-pill:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* SECTIONS */
+    .sec-wrap { max-width: 1100px; margin: 0 auto; }
+    section { padding: 5rem 3rem; border-bottom: 0.5px solid var(--border); }
+    .sec-head { display: flex; align-items: center; gap: 14px; margin-bottom: 3rem; }
+    .sec-num { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); }
+    .ar .sec-num { letter-spacing: 0; font-size: 13px; text-transform: none; }
+    .sec-title { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 500; }
+    .ar .sec-title { font-family: 'Amiri', serif; font-size: 34px; }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+      border: 0.5px solid var(--border); border-radius: var(--radius); overflow: hidden;
+    }
+    .skill-card { background: var(--bg2); padding: 1.75rem; transition: background 0.2s; }
+    .skill-card:hover { background: var(--bg3); }
+    .skill-card-icon { font-size: 18px; margin-bottom: 0.75rem; color: var(--accent); }
+    .skill-card h3 { font-size: 14px; font-weight: 500; margin-bottom: 0.75rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-size: 11px; padding: 3px 9px;
+      background: var(--bg); color: var(--muted);
+      border: 0.5px solid var(--border2); border-radius: 2px; letter-spacing: 0.3px;
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: flex; flex-direction: column; gap: 1px;
+      background: var(--border); border: 0.5px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+    }
+    .project-row {
+      background: var(--bg2); padding: 2rem;
+      display: grid; grid-template-columns: 52px 1fr auto;
+      gap: 1.5rem; align-items: start; transition: background 0.15s;
+    }
+    .ar .project-row { grid-template-columns: auto 1fr 52px; }
+    .project-row:hover { background: var(--bg3); }
+    .project-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px; font-weight: 700; color: var(--hint); line-height: 1; padding-top: 4px;
+    }
+    .project-type { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+    .ar .project-type { text-transform: none; letter-spacing: 0; font-size: 12px; }
+    .project-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500; margin-bottom: 8px; }
+    .ar .project-name { font-family: 'Amiri', serif; font-size: 24px; }
+    .project-desc { font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 560px; margin-bottom: 12px; }
+    .project-arrow { color: var(--hint); font-size: 20px; padding-top: 6px; transition: color 0.2s; }
+    .project-row:hover .project-arrow { color: var(--accent); }
+
+    /* HARDWARE */
+    .exp-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--border);
+      border: 0.5px solid var(--border); border-radius: var(--radius); overflow: hidden;
+    }
+    .exp-card { background: var(--bg2); padding: 2rem; transition: background 0.15s; }
+    .exp-card:hover { background: var(--bg3); }
+    .exp-card-icon { font-size: 22px; margin-bottom: 1rem; color: var(--accent); }
+    .exp-card h3 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 500; margin-bottom: 0.5rem; }
+    .ar .exp-card h3 { font-family: 'Amiri', serif; font-size: 20px; }
+    .exp-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+    /* ABOUT */
+    .about-layout { display: grid; grid-template-columns: 1fr 280px; gap: 4rem; align-items: start; }
+    .about-text p { font-size: 15px; color: var(--muted); line-height: 1.9; margin-bottom: 1.25rem; }
+    .about-stats {
+      display: flex; flex-direction: column; gap: 1px;
+      background: var(--border); border: 0.5px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+    }
+    .stat-item { background: var(--bg2); padding: 1.5rem; }
+    .stat-val { font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 4px; }
+    .stat-lbl { font-size: 11px; letter-spacing: 0.8px; text-transform: uppercase; color: var(--hint); }
+    .ar .stat-lbl { text-transform: none; letter-spacing: 0; font-size: 12px; }
+
+    /* CONTACT */
+    .contact-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+      border: 0.5px solid var(--border); border-radius: var(--radius); overflow: hidden;
+    }
+    .contact-card { background: var(--bg2); padding: 1.75rem; text-decoration: none; display: block; transition: background 0.15s; }
+    .contact-card:hover { background: var(--bg3); }
+    .contact-card-icon {
+      width: 40px; height: 40px; border: 0.5px solid var(--border2);
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 1rem;
+    }
+    .contact-lbl { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--hint); margin-bottom: 4px; }
+    .ar .contact-lbl { text-transform: none; letter-spacing: 0; font-size: 12px; }
+    .contact-val { font-size: 13px; color: var(--text); word-break: break-all; }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center;
+      border-top: 0.5px solid var(--border); max-width: 1100px; margin: 0 auto;
+    }
+    footer p { font-size: 12px; color: var(--hint); }
+    .f-name { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--muted); }
+    .ar .f-name { font-family: 'Amiri', serif; font-size: 18px; }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-content > * { animation: fadeUp 0.7s ease forwards; opacity: 0; }
+    .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+    .hero-content > *:nth-child(2) { animation-delay: 0.2s; }
+    .hero-content > *:nth-child(3) { animation-delay: 0.3s; }
+    .hero-content > *:nth-child(4) { animation-delay: 0.4s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; }
+      .hero-photo-wrap { display: none; }
+      .hero h1 { font-size: 40px; }
+      section { padding: 3rem 1.5rem; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .exp-grid { grid-template-columns: 1fr; }
+      .about-layout { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<script>
+const content = {
+  en: {
+    dir:"ltr", lang:"en",
+    navLogo:'Malak <span>Atef</span>',
+    navLinks:["Skills","Projects","Hardware","About","Contact"],
+    langBtn:"عربي",
+    eyebrow:"Software Engineer · Fresh Graduate",
+    h1:'Building things<br>that <em>matter.</em>',
+    desc:"Full-stack developer with experience in React, ASP.NET APIs, Java, and Python. I build web applications, intelligent systems, and hardware-powered robots.",
+    btnLI:"View LinkedIn ↗", btnGH:"GitHub ↗",
+    photoNote:"Add your photo here",
+    s1:{ num:"01 —", title:"Technical skills" },
+    skills:[
+      { title:"Frontend",            tags:["React","JavaScript","HTML","CSS"] },
+      { title:"Backend & APIs",       tags:["ASP.NET","REST APIs","C#"] },
+      { title:"Languages",           tags:["Java","Python","JavaScript","C#"] },
+      { title:"Hardware",            tags:["Arduino","Sensors","Bluetooth","Motor Control"] },
+      { title:"Tools & Workflow",    tags:["Git","GitHub","Visual Studio","Agile"] },
+      { title:"Concepts",            tags:["OOP","Data Structures","Algorithms","AI Integration"] }
+    ],
+    s2:{ num:"02 —", title:"Projects" },
+    projects:[
+      { num:"01", type:"Game Dev · Python & Java", name:"2D Mario Game",
+        desc:"A classic side-scrolling platform game built in Python with player movement, collision detection, enemies, and level design. Also recreated in Java to explore cross-language game development.",
+        tags:["Python","Java","Game Design","OOP"] },
+      { num:"02", type:"Web App · AI-Powered", name:"Safe Route",
+        desc:"A smart road safety platform where citizens report street issues and hazards. An AI model analyzes each report and routes it to the responsible authority automatically — cutting response time and improving city infrastructure.",
+        tags:["React","ASP.NET API","AI Analysis","Reporting System"] },
+      { num:"03", type:"Hardware · Arduino", name:"Arduino Car Suite",
+        desc:"Four Arduino-powered vehicles: a Bluetooth-controlled car via smartphone, a line-following robot, an obstacle-avoidance car using ultrasonic sensors, and a firefighting robot that detects and extinguishes flames autonomously.",
+        tags:["Arduino","C++","Bluetooth","Sensors","Robotics"] }
+    ],
+    s3:{ num:"03 —", title:"Hardware experience" },
+    hw:[
+      { title:"Bluetooth-controlled car",  desc:"Car controlled wirelessly via a custom Android app over Bluetooth, with real-time directional commands and speed control." },
+      { title:"Line-following robot",      desc:"Robot that autonomously follows a black line path using IR sensors and motor correction logic." },
+      { title:"Obstacle-avoidance car",    desc:"Autonomous vehicle with ultrasonic sensors that detects obstacles and reroutes itself to avoid collisions." },
+      { title:"Firefighting robot",        desc:"Emergency-response robot using flame sensors to locate fires and activate a water pump to extinguish them." }
+    ],
+    s4:{ num:"04 —", title:"About me" },
+    about:[
+      "I'm Malak Atef, a software engineering graduate with a passion for building things — whether that's a web app, an intelligent system, or a physical robot. My range spans React frontends and ASP.NET APIs all the way to Arduino-based hardware.",
+      "What drives me is the intersection of software and real-world impact. Safe Route uses AI to connect citizens with city authorities and improve road safety — that's the kind of work I want to keep doing.",
+      "Currently open to full-time opportunities in web development, backend engineering, or software development roles where I can contribute, grow, and build products that matter."
+    ],
+    stats:[
+      { val:"5+",   lbl:"Languages & frameworks" },
+      { val:"3",    lbl:"Core projects" },
+      { val:"Full", lbl:"Stack developer" },
+      { val:"2025", lbl:"Available now" }
+    ],
+    s5:{ num:"05 —", title:"Get in touch" },
+    footerCopy:"© 2025 · Designed & built with care",
+    footerName:"Malak Atef"
+  },
+  ar: {
+    dir:"rtl", lang:"ar",
+    navLogo:'ملك <span>عاطف</span>',
+    navLinks:["المهارات","المشاريع","الأجهزة","عني","تواصل"],
+    langBtn:"English",
+    eyebrow:"مهندسة برمجيات · خريجة حديثاً",
+    h1:'أبني أشياء<br><em>تُحدث فرقاً.</em>',
+    desc:"مطورة Full Stack لديها خبرة في React وASP.NET APIs وJava وPython. أبني تطبيقات ويب وأنظمة ذكية وروبوتات مدعومة بالأجهزة.",
+    btnLI:"لينكد إن ↗", btnGH:"GitHub ↗",
+    photoNote:"أضيفي صورتك هنا",
+    s1:{ num:"٠١ —", title:"المهارات التقنية" },
+    skills:[
+      { title:"الواجهة الأمامية",        tags:["React","JavaScript","HTML","CSS"] },
+      { title:"الخادم والـ APIs",          tags:["ASP.NET","REST APIs","C#"] },
+      { title:"لغات البرمجة",             tags:["Java","Python","JavaScript","C#"] },
+      { title:"الأجهزة والإلكترونيات",   tags:["Arduino","أجهزة استشعار","Bluetooth","تحكم بالمحركات"] },
+      { title:"الأدوات وسير العمل",       tags:["Git","GitHub","Visual Studio","Agile"] },
+      { title:"المفاهيم البرمجية",        tags:["OOP","هياكل البيانات","الخوارزميات","تكامل AI"] }
+    ],
+    s2:{ num:"٠٢ —", title:"المشاريع" },
+    projects:[
+      { num:"٠١", type:"تطوير ألعاب · Python و Java", name:"لعبة ماريو ثنائية الأبعاد",
+        desc:"لعبة منصات جانبية كلاسيكية مبنية بلغة Python تتضمن حركة اللاعب وكشف التصادم والأعداء وتصميم المستويات. أُعيد بناؤها بلغة Java لاستكشاف تطوير الألعاب عبر لغات مختلفة.",
+        tags:["Python","Java","تصميم ألعاب","OOP"] },
+      { num:"٠٢", type:"تطبيق ويب · مدعوم بالذكاء الاصطناعي", name:"الطريق الآمن",
+        desc:"منصة ذكية لسلامة الطرق تتيح للمواطنين الإبلاغ عن مشاكل الشوارع والمخاطر. يحلل نموذج الذكاء الاصطناعي كل بلاغ تلقائياً ويحوله للجهة المختصة، مما يقلل وقت الاستجابة ويحسن البنية التحتية.",
+        tags:["React","ASP.NET API","تحليل AI","نظام بلاغات"] },
+      { num:"٠٣", type:"أجهزة · Arduino", name:"مجموعة سيارات أردوينو",
+        desc:"أربع سيارات مدعومة بأردوينو: سيارة بتحكم بلوتوث عبر الهاتف، وروبوت تتبع خط، وسيارة تتجنب العوائق بأجهزة استشعار فوق صوتية، وروبوت إطفاء يكشف النيران ويطفئها تلقائياً.",
+        tags:["Arduino","C++","Bluetooth","أجهزة استشعار","روبوتيكس"] }
+    ],
+    s3:{ num:"٠٣ —", title:"خبرة الأجهزة" },
+    hw:[
+      { title:"سيارة بتحكم بلوتوث",   desc:"سيارة تُقاد لاسلكياً عبر تطبيق أندرويد مخصص بالبلوتوث مع تحكم فوري بالاتجاه والسرعة." },
+      { title:"روبوت تتبع الخط",        desc:"روبوت يتبع مسار الخط الأسود بشكل مستقل باستخدام أجهزة استشعار IR ومنطق تصحيح المحركات." },
+      { title:"سيارة تجنب العوائق",     desc:"مركبة ذاتية القيادة مزودة بأجهزة استشعار فوق صوتية تكشف العوائق وتغير مسارها تلقائياً." },
+      { title:"روبوت إطفاء الحرائق",   desc:"روبوت استجابة طارئة يستخدم حساسات اللهب لتحديد الحرائق ويفعّل مضخة ماء لإطفائها تلقائياً." }
+    ],
+    s4:{ num:"٠٤ —", title:"عني" },
+    about:[
+      "أنا ملك عاطف، خريجة هندسة برمجيات أعشق بناء الأشياء — سواء كانت تطبيق ويب أو نظاماً ذكياً أو روبوتاً حقيقياً. خبرتي التقنية تمتد من واجهات React وAPIs بـ ASP.NET وصولاً إلى مشاريع الأجهزة بالأردوينو.",
+      "ما يحركني هو تقاطع البرمجيات مع الأثر الحقيقي. مشروع 'الطريق الآمن' يستخدم الذكاء الاصطناعي لربط المواطنين بالجهات المختصة وتحسين سلامة الطرق — هذا هو نوع العمل الذي أريد الاستمرار فيه.",
+      "أنا حالياً متاحة للفرص الوظيفية في تطوير الويب أو هندسة الخوادم أو تطوير البرمجيات."
+    ],
+    stats:[
+      { val:"٥+",   lbl:"لغات وأطر عمل" },
+      { val:"٣",    lbl:"مشاريع أساسية" },
+      { val:"Full", lbl:"مطورة Full Stack" },
+      { val:"٢٠٢٥", lbl:"متاحة الآن" }
+    ],
+    s5:{ num:"٠٥ —", title:"تواصلي معي" },
+    footerCopy:"© ٢٠٢٥ · صُمّم وبُني بعناية",
+    footerName:"ملك عاطف"
+  }
+};
+
+let lang = "en";
+
+function render() {
+  const d = content[lang];
+  document.documentElement.setAttribute("lang", d.lang);
+  document.documentElement.setAttribute("dir", d.dir);
+  document.body.classList.toggle("ar", lang === "ar");
+  document.title = lang === "ar" ? "ملك عاطف — مهندسة برمجيات" : "Malak Atef — Software Engineer";
+
+  document.querySelector(".nav-logo").innerHTML = d.navLogo;
+  document.querySelectorAll(".nav-links a").forEach((a,i) => { a.textContent = d.navLinks[i]||""; });
+  document.querySelector(".lang-btn").textContent = d.langBtn;
+
+  document.querySelector(".hero-eyebrow span.eyebrow-text").textContent = d.eyebrow;
+  document.querySelector(".hero h1").innerHTML = d.h1;
+  document.querySelector(".hero-desc").textContent = d.desc;
+  document.querySelector(".btn-li").textContent = d.btnLI;
+  document.querySelector(".btn-gh").textContent = d.btnGH;
+  document.querySelector(".photo-placeholder p").textContent = d.photoNote;
+
+  document.querySelector(".s1-num").textContent = d.s1.num;
+  document.querySelector(".s1-title").textContent = d.s1.title;
+  document.querySelectorAll(".skill-card").forEach((c,i) => {
+    const s = d.skills[i]; if (!s) return;
+    c.querySelector("h3").textContent = s.title;
+    c.querySelector(".tags").innerHTML = s.tags.map(t=>`<span class="tag">${t}</span>`).join("");
+  });
+
+  document.querySelector(".s2-num").textContent = d.s2.num;
+  document.querySelector(".s2-title").textContent = d.s2.title;
+  document.querySelectorAll(".project-row").forEach((r,i) => {
+    const p = d.projects[i]; if (!p) return;
+    r.querySelector(".project-num").textContent = p.num;
+    r.querySelector(".project-type").textContent = p.type;
+    r.querySelector(".project-name").textContent = p.name;
+    r.querySelector(".project-desc").textContent = p.desc;
+    r.querySelector(".tags").innerHTML = p.tags.map(t=>`<span class="tag">${t}</span>`).join("");
+  });
+
+  document.querySelector(".s3-num").textContent = d.s3.num;
+  document.querySelector(".s3-title").textContent = d.s3.title;
+  document.querySelectorAll(".exp-card").forEach((c,i) => {
+    const h = d.hw[i]; if (!h) return;
+    c.querySelector("h3").textContent = h.title;
+    c.querySelector("p").textContent = h.desc;
+  });
+
+  document.querySelector(".s4-num").textContent = d.s4.num;
+  document.querySelector(".s4-title").textContent = d.s4.title;
+  document.querySelectorAll(".about-text p").forEach((p,i) => { p.textContent = d.about[i]||""; });
+  document.querySelectorAll(".stat-item").forEach((s,i) => {
+    const st = d.stats[i]; if (!st) return;
+    s.querySelector(".stat-val").textContent = st.val;
+    s.querySelector(".stat-lbl").textContent = st.lbl;
+  });
+
+  document.querySelector(".s5-num").textContent = d.s5.num;
+  document.querySelector(".s5-title").textContent = d.s5.title;
+
+  document.querySelector(".footer-copy").textContent = d.footerCopy;
+  document.querySelector(".f-name").textContent = d.footerName;
+}
+
+function toggleLang() { lang = lang === "en" ? "ar" : "en"; render(); }
+document.addEventListener("DOMContentLoaded", render);
+</script>
+
+<!-- HTML -->
+<nav>
+  <div class="nav-logo"></div>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#skills"></a></li>
+      <li><a href="#projects"></a></li>
+      <li><a href="#hardware"></a></li>
+      <li><a href="#about"></a></li>
+      <li><a href="#contact"></a></li>
+    </ul>
+    <button class="lang-btn" onclick="toggleLang()"></button>
+  </div>
+</nav>
+
+<div class="sec-wrap">
+
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span style="display:block;width:28px;height:1px;background:var(--accent);flex-shrink:0;"></span><span class="eyebrow-text"></span></div>
+      <h1></h1>
+      <p class="hero-desc"></p>
+      <div class="hero-btns">
+        <a class="btn-gold btn-li" href="https://www.linkedin.com/in/malak-atef-%D9%85%D9%84%D9%83-%D8%B9%D8%A7%D8%B7%D9%81-%D8%A7%D8%A8%D9%88-%D8%B1%D9%82%D8%B9%D9%87-1b4960298/" target="_blank"></a>
+        <a class="btn-ghost btn-gh" href="https://github.com/MalakAtef11" target="_blank"></a>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo">
+        <!--
+          ══════════════════════════════════════
+          لإضافة صورتك:
+          1. احفظي صورتك باسم photo.jpg بجانب هذا الملف
+          2. احذفي الـ <div class="photo-placeholder"> كاملاً
+          3. ضعي بدله: <img src="photo.jpg" alt="Malak Atef" />
+          ══════════════════════════════════════
+        -->
+        <div class="photo-placeholder">
+          <img src="Me.jpg" alt="Malak Atef" />
+          <p></p>
+        </div>
+      </div>
+      <div class="hero-social">
+        <a class="social-pill" href="mailto:malakatef614@gmail.com">Email</a>
+        <a class="social-pill" href="https://github.com/MalakAtef11" target="_blank">GitHub</a>
+      </div>
+    </div>
+  </div>
+
+  <section id="skills">
+    <div class="sec-head"><span class="sec-num s1-num"></span><h2 class="sec-title s1-title"></h2></div>
+    <div class="skills-grid">
+      <div class="skill-card"><div class="skill-card-icon">◈</div><h3></h3><div class="tags"></div></div>
+      <div class="skill-card"><div class="skill-card-icon">◈</div><h3></h3><div class="tags"></div></div>
+      <div class="skill-card"><div class="skill-card-icon">◈</div><h3></h3><div class="tags"></div></div>
+      <div class="skill-card"><div class="skill-card-icon">◈</div><h3></h3><div class="tags"></div></div>
+      <div class="skill-card"><div class="skill-card-icon">◈</div><h3></h3><div class="tags"></div></div>
+      <div class="skill-card"><div class="skill-card-icon">◈</div><h3></h3><div class="tags"></div></div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="sec-head"><span class="sec-num s2-num"></span><h2 class="sec-title s2-title"></h2></div>
+    <div class="projects-grid">
+      <div class="project-row"><div class="project-num"></div><div><div class="project-type"></div><div class="project-name"></div><p class="project-desc"></p><div class="tags"></div></div><div class="project-arrow">→</div></div>
+      <div class="project-row"><div class="project-num"></div><div><div class="project-type"></div><div class="project-name"></div><p class="project-desc"></p><div class="tags"></div></div><div class="project-arrow">→</div></div>
+      <div class="project-row"><div class="project-num"></div><div><div class="project-type"></div><div class="project-name"></div><p class="project-desc"></p><div class="tags"></div></div><div class="project-arrow">→</div></div>
+    </div>
+  </section>
+
+  <section id="hardware">
+    <div class="sec-head"><span class="sec-num s3-num"></span><h2 class="sec-title s3-title"></h2></div>
+    <div class="exp-grid">
+      <div class="exp-card"><div class="exp-card-icon">⚙</div><h3></h3><p></p></div>
+      <div class="exp-card"><div class="exp-card-icon">⚙</div><h3></h3><p></p></div>
+      <div class="exp-card"><div class="exp-card-icon">⚙</div><h3></h3><p></p></div>
+      <div class="exp-card"><div class="exp-card-icon">⚙</div><h3></h3><p></p></div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="sec-head"><span class="sec-num s4-num"></span><h2 class="sec-title s4-title"></h2></div>
+    <div class="about-layout">
+      <div class="about-text"><p></p><p></p><p></p></div>
+      <div class="about-stats">
+        <div class="stat-item"><div class="stat-val"></div><div class="stat-lbl"></div></div>
+        <div class="stat-item"><div class="stat-val"></div><div class="stat-lbl"></div></div>
+        <div class="stat-item"><div class="stat-val"></div><div class="stat-lbl"></div></div>
+        <div class="stat-item"><div class="stat-val"></div><div class="stat-lbl"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="sec-head"><span class="sec-num s5-num"></span><h2 class="sec-title s5-title"></h2></div>
+    <div class="contact-grid">
+      <a class="contact-card" href="mailto:malakatef614@gmail.com">
+        <div class="contact-card-icon">@</div>
+        <div class="contact-lbl">Email</div>
+        <div class="contact-val">malakatef614@gmail.com</div>
+      </a>
+      <a class="contact-card" href="https://www.linkedin.com/in/malak-atef-%D9%85%D9%84%D9%83-%D8%B9%D8%A7%D8%B7%D9%81-%D8%A7%D8%A8%D9%88-%D8%B1%D9%82%D8%B9%D9%87-1b4960298/" target="_blank">
+        <div class="contact-card-icon">in</div>
+        <div class="contact-lbl">LinkedIn</div>
+        <div class="contact-val">Malak Atef</div>
+      </a>
+      <a class="contact-card" href="https://github.com/MalakAtef11" target="_blank">
+        <div class="contact-card-icon">&lt;/&gt;</div>
+        <div class="contact-lbl">GitHub</div>
+        <div class="contact-val">MalakAtef11</div>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p class="footer-copy"></p>
+  <span class="f-name"></span>
+</footer>
+
+</body>
+</html>
