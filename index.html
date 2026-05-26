@@ -3,213 +3,363 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SafeRoute</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>SafeRoute — أبلغ ونحن نهتم</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
   <style>
     :root {
-      --bg: #0f0f0f;
-      --bg2: #161616;
-      --text: #f0ede8;
-      --muted: #888580;
-      --accent: #c9a96e;
-      --border: rgba(255,255,255,0.1);
+      --bg:      #0b0b0b;
+      --bg2:     #141414;
+      --bg3:     #1a1a1a;
+      --text:    #f0ede8;
+      --muted:   #7a7672;
+      --hint:    #3a3734;
+      --accent:  #c9a96e;
+      --accent2: #a07840;
+      --border:  rgba(255,255,255,0.07);
+      --border2: rgba(201,169,110,0.25);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Cairo', sans-serif;
       background: var(--bg);
       color: var(--text);
-      height: 100vh;
-      overflow: hidden;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    /* خلفية ناعمة */
-    .bg-glow {
-      position: fixed;
-      top: -200px;
-      right: -200px;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(201,169,110,0.07), transparent 70%);
-      z-index: 0;
+    /* ── BACKGROUND ── */
+    .bg-layer {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
     }
-
-    /* النجوم */
-    .stars {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-    }
-
-    .star {
+    .bg-glow-1 {
       position: absolute;
-      width: 2px;
-      height: 2px;
-      background: white;
-      opacity: 0.3;
-      border-radius: 50%;
-      animation: twinkle 3s infinite alternate;
+      top: -20%; right: -10%;
+      width: 55vw; height: 55vw;
+      background: radial-gradient(circle, rgba(201,169,110,0.07) 0%, transparent 65%);
+    }
+    .bg-glow-2 {
+      position: absolute;
+      bottom: -15%; left: -10%;
+      width: 40vw; height: 40vw;
+      background: radial-gradient(circle, rgba(201,169,110,0.04) 0%, transparent 65%);
+    }
+    .bg-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
     }
 
+    /* ── STARS ── */
+    .stars { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+    .star {
+      position: absolute; border-radius: 50%;
+      background: white; opacity: 0;
+      animation: twinkle linear infinite;
+    }
     @keyframes twinkle {
-      from { opacity: 0.2; }
-      to { opacity: 0.8; }
+      0%,100% { opacity: 0; transform: scale(0.8); }
+      50%      { opacity: 0.6; transform: scale(1.2); }
     }
 
-    /* المحتوى */
-    .hero {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-      z-index: 10;
-      position: relative;
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 3rem;
+      background: rgba(11,11,11,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 0.5px solid var(--border);
     }
-
-    /* اللوجو */
-    .logo {
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
       font-family: 'Playfair Display', serif;
-      font-size: clamp(3rem, 8vw, 4.5rem);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .logo i {
-      color: var(--accent);
-    }
-
-    /* العنوان */
-    .tagline {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      font-weight: 500;
-      margin-bottom: 15px;
-    }
-
-    .sub {
-      color: var(--muted);
-      max-width: 500px;
-      margin-bottom: 40px;
-      line-height: 1.8;
-      font-size: 1rem;
-    }
-
-    /* الأزرار */
-    .buttons {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .btn {
-      padding: 12px 28px;
-      border-radius: 4px;
+      font-size: 20px; font-weight: 700; color: var(--text);
       text-decoration: none;
-      font-size: 14px;
-      transition: 0.3s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
-
-    .primary {
+    .nav-brand .shield {
+      width: 34px; height: 34px;
       background: var(--accent);
-      color: #0f0f0f;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: #0b0b0b;
+    }
+    .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+    .nav-link {
+      font-size: 13px; color: var(--muted);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--accent); }
+    .nav-cta {
+      padding: 8px 20px;
+      background: var(--accent); color: #0b0b0b;
+      border: none; border-radius: 4px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 13px; font-weight: 600;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .nav-cta:hover { background: #d4b47a; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative; z-index: 10;
     }
 
-    .primary:hover {
-      background: #d4b47a;
-      transform: translateY(-2px);
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px;
+      border: 0.5px solid var(--border2);
+      border-radius: 20px;
+      background: rgba(201,169,110,0.06);
+      font-size: 12px; color: var(--accent);
+      letter-spacing: 0.5px;
+      margin-bottom: 2.5rem;
+      animation: fadeDown 0.6s ease forwards;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.4; transform: scale(1.4); }
     }
 
-    .secondary {
-      border: 1px solid var(--border);
+    .hero-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 9vw, 6rem);
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.7s 0.1s ease forwards; opacity: 0;
+    }
+    .hero-logo .safe { color: var(--text); }
+    .hero-logo .route { color: var(--accent); }
+
+    .hero-tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 400;
       color: var(--muted);
+      margin-bottom: 1.25rem;
+      animation: fadeUp 0.7s 0.2s ease forwards; opacity: 0;
+    }
+    .hero-tagline em { color: var(--accent); font-style: italic; }
+
+    .hero-desc {
+      max-width: 520px;
+      font-size: 15px; line-height: 1.9;
+      color: var(--muted); font-weight: 300;
+      margin-bottom: 3rem;
+      animation: fadeUp 0.7s 0.3s ease forwards; opacity: 0;
     }
 
-    .secondary:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+    .hero-btns {
+      display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+      animation: fadeUp 0.7s 0.4s ease forwards; opacity: 0;
     }
 
-    /* موبايل */
-    @media (max-width: 768px) {
-      .buttons {
-        flex-direction: column;
-      }
+    .btn-report {
+      padding: 14px 36px;
+      background: var(--accent); color: #0b0b0b;
+      border: none; border-radius: 4px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 15px; font-weight: 700;
+      cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 10px;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(201,169,110,0.2);
+    }
+    .btn-report:hover {
+      background: #d4b47a; transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(201,169,110,0.3);
+    }
+    .btn-report i { font-size: 16px; }
 
-      .btn {
-        width: 100%;
-        max-width: 260px;
-        justify-content: center;
-      }
+    .btn-portfolio {
+      padding: 14px 28px;
+      background: transparent; color: var(--muted);
+      border: 0.5px solid rgba(255,255,255,0.12);
+      border-radius: 4px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 14px; font-weight: 400;
+      cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-portfolio:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 100%; max-width: 700px; margin: 4rem auto 0;
+      display: flex; align-items: center; gap: 1.5rem;
+      animation: fadeUp 0.7s 0.5s ease forwards; opacity: 0;
+    }
+    .divider-line { flex: 1; height: 0.5px; background: var(--border); }
+    .divider-text { font-size: 11px; letter-spacing: 2px; color: var(--hint); text-transform: uppercase; white-space: nowrap; }
+
+    /* ── FEATURES ── */
+    .features {
+      width: 100%; max-width: 700px; margin: 2.5rem auto 0;
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
+      background: var(--border);
+      border: 0.5px solid var(--border); border-radius: 6px; overflow: hidden;
+      animation: fadeUp 0.7s 0.6s ease forwards; opacity: 0;
+    }
+    .feat {
+      background: var(--bg2); padding: 1.5rem 1.25rem;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 8px; text-align: center;
+      transition: background 0.2s;
+    }
+    .feat:hover { background: var(--bg3); }
+    .feat-icon {
+      width: 36px; height: 36px;
+      border: 0.5px solid var(--border2); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent); font-size: 14px;
+    }
+    .feat-title { font-size: 13px; font-weight: 600; color: var(--text); }
+    .feat-sub   { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+    /* ── FOOTER ── */
+    .page-footer {
+      position: relative; z-index: 10;
+      text-align: center; padding: 2rem;
+      border-top: 0.5px solid var(--border);
+      font-size: 12px; color: var(--hint);
+    }
+    .page-footer a { color: var(--accent); text-decoration: none; }
+    .page-footer a:hover { text-decoration: underline; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp   { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeDown { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links .nav-link { display: none; }
+      .features { grid-template-columns: 1fr; }
+      .hero { padding: 7rem 1.5rem 3rem; }
     }
   </style>
 </head>
-
 <body>
 
-  <div class="bg-glow"></div>
+  <!-- BG -->
+  <div class="bg-layer">
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+    <div class="bg-grid"></div>
+  </div>
   <div class="stars" id="stars"></div>
 
-  <section class="hero">
-    <h1 class="logo">
-      <i class="fas fa-shield-alt"></i>
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-brand">
+      <div class="shield"><i class="fas fa-shield-alt"></i></div>
       SafeRoute
-    </h1>
-
-    <p class="tagline">
-      أبلغ... ونحن نهتم بالباقي
-    </p>
-
-    <p class="sub">
-      منصة ذكية لتحليل البلاغات (نص، صوت، صورة) وتوجيهها للجهات المختصة
-      مع متابعة حالتها بشكل فوري.
-    </p>
-
-    <div class="buttons">
-      <a href="#" class="btn primary">
+    </a>
+    <div class="nav-links">
+      <a href="malak-atef-portfolio.html" class="nav-link">Portfolio</a>
+      <a href="http://185.188.249.68/" target="_blank" class="nav-cta">
         <i class="fas fa-paper-plane"></i>
-        إرسال بلاغ
-      </a>
-
-      <a href="malak-atef-portfolio.html" class="btn secondary">
-        <i class="fas fa-user"></i>
-        Pportfolio
+        أبلغ الآن
       </a>
     </div>
-  </section>
+  </nav>
+
+  <!-- HERO -->
+  <main class="hero">
+
+    <div class="hero-badge">
+      <span class="dot"></span>
+      منصة ذكية لإدارة البلاغات
+    </div>
+
+    <h1 class="hero-logo">
+      <span class="safe">Safe</span><span class="route">Route</span>
+    </h1>
+
+    <p class="hero-tagline">أبلغ… <em>ونحن نهتم بالباقي</em></p>
+
+    <p class="hero-desc">
+      منصة متكاملة تحلل بلاغات المواطنين — نصاً وصوتاً وصورةً — بالذكاء الاصطناعي،
+      وتوجّهها تلقائياً للجهات المختصة مع تتبع فوري لحالة كل بلاغ.
+    </p>
+
+    <div class="hero-btns">
+      <a href="http://185.188.249.68/" target="_blank" class="btn-report">
+        <i class="fas fa-paper-plane"></i>
+        أبلغ الآن
+      </a>
+      <a href="malak-atef-portfolio.html" class="btn-portfolio">
+        <i class="fas fa-user"></i>
+        Portfolio
+      </a>
+    </div>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-text">ما يميز المنصة</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="features">
+      <div class="feat">
+        <div class="feat-icon"><i class="fas fa-brain"></i></div>
+        <div class="feat-title">تحليل ذكي</div>
+        <div class="feat-sub">نموذج AI يصنّف البلاغ ويحدد الجهة المختصة</div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon"><i class="fas fa-bolt"></i></div>
+        <div class="feat-title">توجيه فوري</div>
+        <div class="feat-sub">يصل البلاغ للجهة المعنية في ثوانٍ معدودة</div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="feat-title">تتبع مباشر</div>
+        <div class="feat-sub">تابع حالة بلاغك لحظةً بلحظة</div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="page-footer">
+    © 2026 SafeRoute · Built by <a href="malak-atef-portfolio.html">Malak Atef</a>
+  </footer>
 
   <script>
-    const starsContainer = document.getElementById('stars');
-
-    for (let i = 0; i < 60; i++) {
-      const star = document.createElement('div');
-      star.classList.add('star');
-
-      star.style.top = Math.random() * 100 + '%';
-      star.style.left = Math.random() * 100 + '%';
-      star.style.animationDelay = Math.random() * 3 + 's';
-
-      starsContainer.appendChild(star);
+    // Stars
+    const sc = document.getElementById('stars');
+    for (let i = 0; i < 80; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      const size = Math.random() * 2 + 1;
+      s.style.cssText = `
+        top:${Math.random()*100}%;
+        left:${Math.random()*100}%;
+        width:${size}px; height:${size}px;
+        animation-duration:${Math.random()*4+2}s;
+        animation-delay:${Math.random()*5}s;
+      `;
+      sc.appendChild(s);
     }
   </script>
-
 </body>
 </html>
