@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;500;600&family=Playfair+Display:wght@400;500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     :root {
       --bg:      #0f0f0f;
@@ -63,6 +64,16 @@
       cursor: pointer; transition: background 0.2s, color 0.2s; white-space: nowrap;
     }
     .lang-btn:hover { background: var(--accent); color: #0f0f0f; }
+    .home-btn {
+      padding: 6px 14px;
+      border: 0.5px solid var(--border2); border-radius: 20px;
+      background: transparent; color: var(--muted);
+      font-size: 12px; font-family: inherit;
+      cursor: pointer; text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .home-btn:hover { border-color: var(--accent); color: var(--accent); }
 
     /* HERO */
     .hero {
@@ -287,12 +298,12 @@ const content = {
     photoNote:"Add your photo here",
     s1:{ num:"01 —", title:"Technical skills" },
     skills:[
-      { title:"Frontend",            tags:["React","JavaScript","HTML","CSS"] },
-      { title:"Backend & APIs",       tags:["ASP.NET","REST APIs","C#"] },
-      { title:"Languages",           tags:["Java","Python","JavaScript","C#"] },
-      { title:"Hardware",            tags:["Arduino","Sensors","Bluetooth","Motor Control"] },
-      { title:"Tools & Workflow",    tags:["Git","GitHub","Visual Studio","Agile"] },
-      { title:"Concepts",            tags:["OOP","Data Structures","Algorithms","AI Integration"] }
+      { icon:"fa-brands fa-react",      title:"Frontend",            tags:["React","JavaScript","HTML","CSS"] },
+      { icon:"fa-solid fa-server",       title:"Backend & APIs",       tags:["ASP.NET","REST APIs","C#"] },
+      { icon:"fa-solid fa-code",         title:"Languages",           tags:["Java","Python","JavaScript","C#"] },
+      { icon:"fa-solid fa-microchip",    title:"Hardware",            tags:["Arduino","Sensors","Bluetooth","Motor Control"] },
+      { icon:"fa-brands fa-git-alt",     title:"Tools & Workflow",    tags:["Git","GitHub","Visual Studio","Agile"] },
+      { icon:"fa-solid fa-brain",        title:"Concepts",            tags:["OOP","Data Structures","Algorithms","AI Integration"] }
     ],
     s2:{ num:"02 —", title:"Projects" },
     projects:[
@@ -308,10 +319,10 @@ const content = {
     ],
     s3:{ num:"03 —", title:"Hardware experience" },
     hw:[
-      { title:"Bluetooth-controlled car",  desc:"Car controlled wirelessly via a custom Android app over Bluetooth, with real-time directional commands and speed control." },
-      { title:"Line-following robot",      desc:"Robot that autonomously follows a black line path using IR sensors and motor correction logic." },
-      { title:"Obstacle-avoidance car",    desc:"Autonomous vehicle with ultrasonic sensors that detects obstacles and reroutes itself to avoid collisions." },
-      { title:"Firefighting robot",        desc:"Emergency-response robot using flame sensors to locate fires and activate a water pump to extinguish them." }
+      { icon:"fa-solid fa-mobile-screen", title:"Bluetooth-controlled car",  desc:"Car controlled wirelessly via a custom Android app over Bluetooth, with real-time directional commands and speed control." },
+      { icon:"fa-solid fa-route",          title:"Line-following robot",      desc:"Robot that autonomously follows a black line path using IR sensors and motor correction logic." },
+      { icon:"fa-solid fa-shield-halved",  title:"Obstacle-avoidance car",    desc:"Autonomous vehicle with ultrasonic sensors that detects obstacles and reroutes itself to avoid collisions." },
+      { icon:"fa-solid fa-fire-flame-curved", title:"Firefighting robot",     desc:"Emergency-response robot using flame sensors to locate fires and activate a water pump to extinguish them." }
     ],
     s4:{ num:"04 —", title:"About me" },
     about:[
@@ -341,12 +352,12 @@ const content = {
     photoNote:"أضيفي صورتك هنا",
     s1:{ num:"٠١ —", title:"المهارات التقنية" },
     skills:[
-      { title:"الواجهة الأمامية",        tags:["React","JavaScript","HTML","CSS"] },
-      { title:"الخادم والـ APIs",          tags:["ASP.NET","REST APIs","C#"] },
-      { title:"لغات البرمجة",             tags:["Java","Python","JavaScript","C#"] },
-      { title:"الأجهزة والإلكترونيات",   tags:["Arduino","أجهزة استشعار","Bluetooth","تحكم بالمحركات"] },
-      { title:"الأدوات وسير العمل",       tags:["Git","GitHub","Visual Studio","Agile"] },
-      { title:"المفاهيم البرمجية",        tags:["OOP","هياكل البيانات","الخوارزميات","تكامل AI"] }
+      { icon:"fa-brands fa-react",      title:"الواجهة الأمامية",        tags:["React","JavaScript","HTML","CSS"] },
+      { icon:"fa-solid fa-server",       title:"الخادم والـ APIs",          tags:["ASP.NET","REST APIs","C#"] },
+      { icon:"fa-solid fa-code",         title:"لغات البرمجة",             tags:["Java","Python","JavaScript","C#"] },
+      { icon:"fa-solid fa-microchip",    title:"الأجهزة والإلكترونيات",   tags:["Arduino","أجهزة استشعار","Bluetooth","تحكم بالمحركات"] },
+      { icon:"fa-brands fa-git-alt",     title:"الأدوات وسير العمل",       tags:["Git","GitHub","Visual Studio","Agile"] },
+      { icon:"fa-solid fa-brain",        title:"المفاهيم البرمجية",        tags:["OOP","هياكل البيانات","الخوارزميات","تكامل AI"] }
     ],
     s2:{ num:"٠٢ —", title:"المشاريع" },
     projects:[
@@ -362,10 +373,10 @@ const content = {
     ],
     s3:{ num:"٠٣ —", title:"خبرة الأجهزة" },
     hw:[
-      { title:"سيارة بتحكم بلوتوث",   desc:"سيارة تُقاد لاسلكياً عبر تطبيق أندرويد مخصص بالبلوتوث مع تحكم فوري بالاتجاه والسرعة." },
-      { title:"روبوت تتبع الخط",        desc:"روبوت يتبع مسار الخط الأسود بشكل مستقل باستخدام أجهزة استشعار IR ومنطق تصحيح المحركات." },
-      { title:"سيارة تجنب العوائق",     desc:"مركبة ذاتية القيادة مزودة بأجهزة استشعار فوق صوتية تكشف العوائق وتغير مسارها تلقائياً." },
-      { title:"روبوت إطفاء الحرائق",   desc:"روبوت استجابة طارئة يستخدم حساسات اللهب لتحديد الحرائق ويفعّل مضخة ماء لإطفائها تلقائياً." }
+      { icon:"fa-solid fa-mobile-screen",    title:"سيارة بتحكم بلوتوث",   desc:"سيارة تُقاد لاسلكياً عبر تطبيق أندرويد مخصص بالبلوتوث مع تحكم فوري بالاتجاه والسرعة." },
+      { icon:"fa-solid fa-route",             title:"روبوت تتبع الخط",        desc:"روبوت يتبع مسار الخط الأسود بشكل مستقل باستخدام أجهزة استشعار IR ومنطق تصحيح المحركات." },
+      { icon:"fa-solid fa-shield-halved",     title:"سيارة تجنب العوائق",     desc:"مركبة ذاتية القيادة مزودة بأجهزة استشعار فوق صوتية تكشف العوائق وتغير مسارها تلقائياً." },
+      { icon:"fa-solid fa-fire-flame-curved", title:"روبوت إطفاء الحرائق",   desc:"روبوت استجابة طارئة يستخدم حساسات اللهب لتحديد الحرائق ويفعّل مضخة ماء لإطفائها تلقائياً." }
     ],
     s4:{ num:"٠٤ —", title:"عني" },
     about:[
@@ -401,14 +412,15 @@ function render() {
   document.querySelector(".hero-eyebrow span.eyebrow-text").textContent = d.eyebrow;
   document.querySelector(".hero h1").innerHTML = d.h1;
   document.querySelector(".hero-desc").textContent = d.desc;
-  document.querySelector(".btn-li").textContent = d.btnLI;
-  document.querySelector(".btn-gh").textContent = d.btnGH;
+  document.querySelector(".btn-li-text").textContent = d.btnLI;
+  document.querySelector(".btn-gh-text").textContent = d.btnGH;
   const photoP = document.querySelector(".photo-placeholder p"); if (photoP) photoP.textContent = d.photoNote;
 
   document.querySelector(".s1-num").textContent = d.s1.num;
   document.querySelector(".s1-title").textContent = d.s1.title;
   document.querySelectorAll(".skill-card").forEach((c,i) => {
     const s = d.skills[i]; if (!s) return;
+    c.querySelector(".skill-card-icon").innerHTML = `<i class="${s.icon}"></i>`;
     c.querySelector("h3").textContent = s.title;
     c.querySelector(".tags").innerHTML = s.tags.map(t=>`<span class="tag">${t}</span>`).join("");
   });
@@ -428,6 +440,7 @@ function render() {
   document.querySelector(".s3-title").textContent = d.s3.title;
   document.querySelectorAll(".exp-card").forEach((c,i) => {
     const h = d.hw[i]; if (!h) return;
+    c.querySelector(".exp-card-icon").innerHTML = `<i class="${h.icon}"></i>`;
     c.querySelector("h3").textContent = h.title;
     c.querySelector("p").textContent = h.desc;
   });
@@ -464,6 +477,7 @@ document.addEventListener("DOMContentLoaded", render);
       <li><a href="#contact"></a></li>
     </ul>
     <button class="lang-btn" onclick="toggleLang()"></button>
+    <a class="home-btn" href="saferoute.html"><i class="fas fa-house"></i> Home</a>
   </div>
 </nav>
 
@@ -475,8 +489,8 @@ document.addEventListener("DOMContentLoaded", render);
       <h1></h1>
       <p class="hero-desc"></p>
       <div class="hero-btns">
-        <a class="btn-gold btn-li" href="https://www.linkedin.com/in/malak-atef-%D9%85%D9%84%D9%83-%D8%B9%D8%A7%D8%B7%D9%81-%D8%A7%D8%A8%D9%88-%D8%B1%D9%82%D8%B9%D9%87-1b4960298/" target="_blank"></a>
-        <a class="btn-ghost btn-gh" href="https://github.com/MalakAtef11" target="_blank"></a>
+        <a class="btn-gold btn-li" href="https://www.linkedin.com/in/malak-atef-%D9%85%D9%84%D9%83-%D8%B9%D8%A7%D8%B7%D9%81-%D8%A7%D8%A8%D9%88-%D8%B1%D9%82%D8%B9%D9%87-1b4960298/" target="_blank"><i class="fa-brands fa-linkedin"></i> <span class="btn-li-text"></span></a>
+        <a class="btn-ghost btn-gh" href="https://github.com/MalakAtef11" target="_blank"><i class="fa-brands fa-github"></i> <span class="btn-gh-text"></span></a>
       </div>
     </div>
     <div class="hero-photo-wrap">
@@ -484,8 +498,8 @@ document.addEventListener("DOMContentLoaded", render);
         <img src="qr Page/me.jpg" alt="Malak Atef" />
       </div>
       <div class="hero-social">
-        <a class="social-pill" href="mailto:malakatef614@gmail.com">Email</a>
-        <a class="social-pill" href="https://github.com/MalakAtef11" target="_blank">GitHub</a>
+        <a class="social-pill" href="mailto:malakatef614@gmail.com"><i class="fa-solid fa-envelope"></i> Email</a>
+        <a class="social-pill" href="https://github.com/MalakAtef11" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
       </div>
     </div>
   </div>
@@ -505,9 +519,9 @@ document.addEventListener("DOMContentLoaded", render);
   <section id="projects">
     <div class="sec-head"><span class="sec-num s2-num"></span><h2 class="sec-title s2-title"></h2></div>
     <div class="projects-grid">
-      <div class="project-row"><div class="project-num"></div><div><div class="project-type"></div><div class="project-name"></div><p class="project-desc"></p><div class="tags"></div></div><div class="project-arrow">→</div></div>
-      <div class="project-row"><div class="project-num"></div><div><div class="project-type"></div><div class="project-name"></div><p class="project-desc"></p><div class="tags"></div></div><div class="project-arrow">→</div></div>
-      <div class="project-row"><div class="project-num"></div><div><div class="project-type"></div><div class="project-name"></div><p class="project-desc"></p><div class="tags"></div></div><div class="project-arrow">→</div></div>
+      <div class="project-row"><div class="project-num"></div><div><div class="project-type"></div><div class="project-name"></div><p class="project-desc"></p><div class="tags"></div></div><div class="project-arrow"><i class="fa-solid fa-arrow-right"></i></div></div>
+      <div class="project-row"><div class="project-num"></div><div><div class="project-type"></div><div class="project-name"></div><p class="project-desc"></p><div class="tags"></div></div><div class="project-arrow"><i class="fa-solid fa-arrow-right"></i></div></div>
+      <div class="project-row"><div class="project-num"></div><div><div class="project-type"></div><div class="project-name"></div><p class="project-desc"></p><div class="tags"></div></div><div class="project-arrow"><i class="fa-solid fa-arrow-right"></i></div></div>
     </div>
   </section>
 
@@ -538,17 +552,17 @@ document.addEventListener("DOMContentLoaded", render);
     <div class="sec-head"><span class="sec-num s5-num"></span><h2 class="sec-title s5-title"></h2></div>
     <div class="contact-grid">
       <a class="contact-card" href="mailto:malakatef614@gmail.com">
-        <div class="contact-card-icon">@</div>
+        <div class="contact-card-icon"><i class="fa-solid fa-envelope"></i></div>
         <div class="contact-lbl">Email</div>
         <div class="contact-val">malakatef614@gmail.com</div>
       </a>
       <a class="contact-card" href="https://www.linkedin.com/in/malak-atef-%D9%85%D9%84%D9%83-%D8%B9%D8%A7%D8%B7%D9%81-%D8%A7%D8%A8%D9%88-%D8%B1%D9%82%D8%B9%D9%87-1b4960298/" target="_blank">
-        <div class="contact-card-icon">in</div>
+        <div class="contact-card-icon"><i class="fa-brands fa-linkedin"></i></div>
         <div class="contact-lbl">LinkedIn</div>
         <div class="contact-val">Malak Atef</div>
       </a>
       <a class="contact-card" href="https://github.com/MalakAtef11" target="_blank">
-        <div class="contact-card-icon">&lt;/&gt;</div>
+        <div class="contact-card-icon"><i class="fa-brands fa-github"></i></div>
         <div class="contact-lbl">GitHub</div>
         <div class="contact-val">MalakAtef11</div>
       </a>
