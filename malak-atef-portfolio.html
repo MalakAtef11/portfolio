@@ -323,10 +323,10 @@ const content = {
       { val:"5+",   lbl:"Languages & frameworks" },
       { val:"3",    lbl:"Core projects" },
       { val:"Full", lbl:"Stack developer" },
-      { val:"2025", lbl:"Available now" }
+      { val:"2026", lbl:"Available now" }
     ],
     s5:{ num:"05 —", title:"Get in touch" },
-    footerCopy:"© 2025 · Designed & built with care",
+    footerCopy:"© 2026 · Designed & built with care",
     footerName:"Malak Atef"
   },
   ar: {
@@ -377,10 +377,10 @@ const content = {
       { val:"٥+",   lbl:"لغات وأطر عمل" },
       { val:"٣",    lbl:"مشاريع أساسية" },
       { val:"Full", lbl:"مطورة Full Stack" },
-      { val:"٢٠٢٥", lbl:"متاحة الآن" }
+      { val:"٢٠٢٦", lbl:"متاحة الآن" }
     ],
     s5:{ num:"٠٥ —", title:"تواصلي معي" },
-    footerCopy:"© ٢٠٢٥ · صُمّم وبُني بعناية",
+    footerCopy:"© ٢٠٢٦ · صُمّم وبُني بعناية",
     footerName:"ملك عاطف"
   }
 };
@@ -403,7 +403,7 @@ function render() {
   document.querySelector(".hero-desc").textContent = d.desc;
   document.querySelector(".btn-li").textContent = d.btnLI;
   document.querySelector(".btn-gh").textContent = d.btnGH;
-  document.querySelector(".photo-placeholder p").textContent = d.photoNote;
+  const photoP = document.querySelector(".photo-placeholder p"); if (photoP) photoP.textContent = d.photoNote;
 
   document.querySelector(".s1-num").textContent = d.s1.num;
   document.querySelector(".s1-title").textContent = d.s1.title;
@@ -481,18 +481,7 @@ document.addEventListener("DOMContentLoaded", render);
     </div>
     <div class="hero-photo-wrap">
       <div class="hero-photo">
-        <!--
-          ══════════════════════════════════════
-          لإضافة صورتك:
-          1. احفظي صورتك باسم photo.jpg بجانب هذا الملف
-          2. احذفي الـ <div class="photo-placeholder"> كاملاً
-          3. ضعي بدله: <img src="photo.jpg" alt="Malak Atef" />
-          ══════════════════════════════════════
-        -->
-        <div class="photo-placeholder">
-          <img src="qr Page/me.jpg" alt="Malak Atef" />
-          <p></p>
-        </div>
+        <img src="qr Page/me.jpg" alt="Malak Atef" />
       </div>
       <div class="hero-social">
         <a class="social-pill" href="mailto:malakatef614@gmail.com">Email</a>
