@@ -218,6 +218,36 @@
     .ar .exp-card h3 { font-family: 'Amiri', serif; font-size: 20px; }
     .exp-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
 
+    /* CERTIFICATIONS */
+    .cert-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+      border: 0.5px solid var(--border); border-radius: var(--radius); overflow: hidden;
+    }
+    .cert-card { background: var(--bg2); padding: 1.75rem; transition: background 0.15s; }
+    .cert-card:hover { background: var(--bg3); }
+    .cert-card-icon { font-size: 20px; margin-bottom: 0.75rem; color: var(--accent); }
+    .cert-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; color: var(--text); }
+    .cert-issuer { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+    .cert-date { font-size: 11px; letter-spacing: 0.5px; color: var(--hint); }
+    .cert-duration { display: inline-block; margin-top: 8px; font-size: 11px; padding: 2px 8px; border: 0.5px solid var(--border2); border-radius: 2px; color: var(--hint); }
+
+    /* ACHIEVEMENTS */
+    .achieve-list {
+      display: flex; flex-direction: column; gap: 1px;
+      background: var(--border); border: 0.5px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+    }
+    .achieve-item {
+      background: var(--bg2); padding: 1.5rem 2rem;
+      display: flex; align-items: flex-start; gap: 1.25rem;
+      transition: background 0.15s;
+    }
+    .achieve-item:hover { background: var(--bg3); }
+    .achieve-icon { font-size: 16px; color: var(--accent); padding-top: 3px; flex-shrink: 0; }
+    .achieve-text { font-size: 14px; color: var(--muted); line-height: 1.7; }
+    .achieve-text strong { color: var(--text); font-weight: 500; display: block; margin-bottom: 3px; }
+
     /* ABOUT */
     .about-layout { display: grid; grid-template-columns: 1fr 280px; gap: 4rem; align-items: start; }
     .about-text p { font-size: 15px; color: var(--muted); line-height: 1.9; margin-bottom: 1.25rem; }
@@ -233,7 +263,7 @@
 
     /* CONTACT */
     .contact-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
+      display: grid; grid-template-columns: repeat(4, 1fr);
       gap: 1px; background: var(--border);
       border: 0.5px solid var(--border); border-radius: var(--radius); overflow: hidden;
     }
@@ -275,10 +305,15 @@
       .hero h1 { font-size: 40px; }
       section { padding: 3rem 1.5rem; }
       .skills-grid { grid-template-columns: 1fr 1fr; }
+      .cert-grid { grid-template-columns: 1fr 1fr; }
       .exp-grid { grid-template-columns: 1fr; }
       .about-layout { grid-template-columns: 1fr; }
-      .contact-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr 1fr; }
       footer { padding: 1.5rem; flex-direction: column; gap: 8px; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .cert-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -289,7 +324,7 @@ const content = {
   en: {
     dir:"ltr", lang:"en",
     navLogo:'Malak <span>Atef</span>',
-    navLinks:["Skills","Projects","Hardware","About","Contact"],
+    navLinks:["Skills","Projects","Certs","Hardware","About","Contact"],
     langBtn:"عربي",
     eyebrow:"Software Engineer · Fresh Graduate",
     h1:'Building things<br>that <em>matter.</em>',
@@ -313,37 +348,56 @@ const content = {
       { num:"02", type:"Web App · AI-Powered", name:"Safe Route",
         desc:"A smart road safety platform where citizens report street issues and hazards. An AI model analyzes each report and routes it to the responsible authority automatically — cutting response time and improving city infrastructure.",
         tags:["React","ASP.NET API","AI Analysis","Reporting System"] },
-      { num:"03", type:"Hardware · Arduino", name:"Arduino Car Suite",
+      { num:"03", type:"OOP System · Java", name:"ArtShop",
+        desc:"A software system designed around OOP principles for managing and facilitating the buying and selling of artworks online. Applied inheritance and encapsulation to improve code management and reusability.",
+        tags:["Java","OOP","Inheritance","Encapsulation"] },
+      { num:"04", type:"Hardware · Arduino", name:"Arduino Car Suite",
         desc:"Four Arduino-powered vehicles: a Bluetooth-controlled car via smartphone, a line-following robot, an obstacle-avoidance car using ultrasonic sensors, and a firefighting robot that detects and extinguishes flames autonomously.",
         tags:["Arduino","C++","Bluetooth","Sensors","Robotics"] }
     ],
-    s3:{ num:"03 —", title:"Hardware experience" },
+    s3:{ num:"03 —", title:"Certifications" },
+    certs:[
+      { icon:"fa-brands fa-aws",         name:"Amazon Web Services — Cloud Computing", issuer:"Makani Training Company",          date:"Sep 2024",  duration:"2 hrs" },
+      { icon:"fa-solid fa-code",         name:"HTML & CSS — Full Stack Web Dev",        issuer:"Al Hussein Technical University",  date:"Sep 2024",  duration:null },
+      { icon:"fa-solid fa-laptop-code",  name:"ASP.NET (MVC)",                           issuer:"The Hope International Company",   date:"Jun 2024",  duration:"40 hrs" },
+      { icon:"fa-brands fa-java",        name:"Java SE & JDBC",                          issuer:"Tuned Applications Academy",       date:"Jul 2023 – Jan 2024", duration:"80 hrs" },
+      { icon:"fa-solid fa-microchip",    name:"Arduino & Robotics",                      issuer:"HUBOT",                            date:"Aug – Oct 2024", duration:"30 hrs" },
+      { icon:"fa-brands fa-github",      name:"GitHub Certification",                    issuer:"Microsoft Learn",                  date:"May 2024",  duration:null }
+    ],
+    s4:{ num:"04 —", title:"Hardware experience" },
     hw:[
       { icon:"fa-solid fa-mobile-screen", title:"Bluetooth-controlled car",  desc:"Car controlled wirelessly via a custom Android app over Bluetooth, with real-time directional commands and speed control." },
       { icon:"fa-solid fa-route",          title:"Line-following robot",      desc:"Robot that autonomously follows a black line path using IR sensors and motor correction logic." },
       { icon:"fa-solid fa-shield-halved",  title:"Obstacle-avoidance car",    desc:"Autonomous vehicle with ultrasonic sensors that detects obstacles and reroutes itself to avoid collisions." },
       { icon:"fa-solid fa-fire-flame-curved", title:"Firefighting robot",     desc:"Emergency-response robot using flame sensors to locate fires and activate a water pump to extinguish them." }
     ],
-    s4:{ num:"04 —", title:"About me" },
+    s5:{ num:"05 —", title:"Achievements" },
+    achievements:[
+      { icon:"fa-solid fa-trophy",        title:"Academic Excellence",       desc:"Maintained a position on the academic excellence and honor list throughout university." },
+      { icon:"fa-solid fa-calendar-check",title:"Event Support — ZCC & GDG", desc:"Provided technical and organisational support for events including the ZCC Problem Solving competition and GDG Google." },
+      { icon:"fa-brands fa-linkedin",     title:"IEEE Comsoc Page Management",desc:"Managed the official IEEE Comsoc page — designed, released, and managed posts along with reels." },
+      { icon:"fa-solid fa-palette",       title:"ITeam Media & Design",      desc:"Provided media support and graphic design for ITeam alongside fellow group members." }
+    ],
+    s6:{ num:"06 —", title:"About me" },
     about:[
       "I'm Malak Atef, a software engineering graduate with a passion for building things — whether that's a web app, an intelligent system, or a physical robot. My range spans React frontends and ASP.NET APIs all the way to Arduino-based hardware.",
       "What drives me is the intersection of software and real-world impact. Safe Route uses AI to connect citizens with city authorities and improve road safety — that's the kind of work I want to keep doing.",
       "Currently open to full-time opportunities in web development, backend engineering, or software development roles where I can contribute, grow, and build products that matter."
     ],
     stats:[
-      { val:"5+",   lbl:"Languages & frameworks" },
-      { val:"3",    lbl:"Core projects" },
+      { val:"6+",   lbl:"Certifications earned" },
+      { val:"4",    lbl:"Core projects" },
       { val:"Full", lbl:"Stack developer" },
       { val:"2026", lbl:"Available now" }
     ],
-    s5:{ num:"05 —", title:"Get in touch" },
+    s7:{ num:"07 —", title:"Get in touch" },
     footerCopy:"© 2026 · Designed & built with care",
     footerName:"Malak Atef"
   },
   ar: {
     dir:"rtl", lang:"ar",
     navLogo:'ملك <span>عاطف</span>',
-    navLinks:["المهارات","المشاريع","الأجهزة","عني","تواصل"],
+    navLinks:["المهارات","المشاريع","الشهادات","الأجهزة","عني","تواصل"],
     langBtn:"English",
     eyebrow:"مهندسة برمجيات · خريجة حديثاً",
     h1:'أبني أشياء<br><em>تُحدث فرقاً.</em>',
@@ -367,30 +421,49 @@ const content = {
       { num:"٠٢", type:"تطبيق ويب · مدعوم بالذكاء الاصطناعي", name:"الطريق الآمن",
         desc:"منصة ذكية لسلامة الطرق تتيح للمواطنين الإبلاغ عن مشاكل الشوارع والمخاطر. يحلل نموذج الذكاء الاصطناعي كل بلاغ تلقائياً ويحوله للجهة المختصة، مما يقلل وقت الاستجابة ويحسن البنية التحتية.",
         tags:["React","ASP.NET API","تحليل AI","نظام بلاغات"] },
-      { num:"٠٣", type:"أجهزة · Arduino", name:"مجموعة سيارات أردوينو",
+      { num:"٠٣", type:"نظام OOP · Java", name:"ArtShop",
+        desc:"نظام برمجي مبني على مبادئ OOP لإدارة وتسهيل بيع وشراء الأعمال الفنية أونلاين. طُبّق الوراثة والتغليف لتحسين تنظيم الكود وإمكانية إعادة استخدامه.",
+        tags:["Java","OOP","الوراثة","التغليف"] },
+      { num:"٠٤", type:"أجهزة · Arduino", name:"مجموعة سيارات أردوينو",
         desc:"أربع سيارات مدعومة بأردوينو: سيارة بتحكم بلوتوث عبر الهاتف، وروبوت تتبع خط، وسيارة تتجنب العوائق بأجهزة استشعار فوق صوتية، وروبوت إطفاء يكشف النيران ويطفئها تلقائياً.",
         tags:["Arduino","C++","Bluetooth","أجهزة استشعار","روبوتيكس"] }
     ],
-    s3:{ num:"٠٣ —", title:"خبرة الأجهزة" },
+    s3:{ num:"٠٣ —", title:"الشهادات والدورات" },
+    certs:[
+      { icon:"fa-brands fa-aws",         name:"Amazon Web Services — الحوسبة السحابية", issuer:"شركة مكاني للتدريب",             date:"سبتمبر 2024",  duration:"ساعتان" },
+      { icon:"fa-solid fa-code",         name:"HTML & CSS — مسار تطوير الويب",          issuer:"الجامعة التقنية الحسينية",        date:"سبتمبر 2024",  duration:null },
+      { icon:"fa-solid fa-laptop-code",  name:"ASP.NET (MVC)",                           issuer:"شركة Hope الدولية",              date:"يونيو 2024",   duration:"40 ساعة" },
+      { icon:"fa-brands fa-java",        name:"Java SE & JDBC",                          issuer:"أكاديمية Tuned Applications",    date:"يوليو 2023 – يناير 2024", duration:"80 ساعة" },
+      { icon:"fa-solid fa-microchip",    name:"Arduino والروبوتيكس",                    issuer:"HUBOT",                          date:"أغسطس – أكتوبر 2024", duration:"30 ساعة" },
+      { icon:"fa-brands fa-github",      name:"شهادة GitHub",                            issuer:"Microsoft Learn",                date:"مايو 2024",    duration:null }
+    ],
+    s4:{ num:"٠٤ —", title:"خبرة الأجهزة" },
     hw:[
       { icon:"fa-solid fa-mobile-screen",    title:"سيارة بتحكم بلوتوث",   desc:"سيارة تُقاد لاسلكياً عبر تطبيق أندرويد مخصص بالبلوتوث مع تحكم فوري بالاتجاه والسرعة." },
       { icon:"fa-solid fa-route",             title:"روبوت تتبع الخط",        desc:"روبوت يتبع مسار الخط الأسود بشكل مستقل باستخدام أجهزة استشعار IR ومنطق تصحيح المحركات." },
       { icon:"fa-solid fa-shield-halved",     title:"سيارة تجنب العوائق",     desc:"مركبة ذاتية القيادة مزودة بأجهزة استشعار فوق صوتية تكشف العوائق وتغير مسارها تلقائياً." },
       { icon:"fa-solid fa-fire-flame-curved", title:"روبوت إطفاء الحرائق",   desc:"روبوت استجابة طارئة يستخدم حساسات اللهب لتحديد الحرائق ويفعّل مضخة ماء لإطفائها تلقائياً." }
     ],
-    s4:{ num:"٠٤ —", title:"عني" },
+    s5:{ num:"٠٥ —", title:"الإنجازات" },
+    achievements:[
+      { icon:"fa-solid fa-trophy",        title:"التفوق الأكاديمي",           desc:"الحفاظ على الاسم في قائمة التفوق الأكاديمي والشرف طوال سنوات الدراسة." },
+      { icon:"fa-solid fa-calendar-check",title:"دعم الفعاليات — ZCC وGDG",   desc:"تقديم الدعم التقني والتنظيمي لفعاليات منها مسابقة ZCC لحل المشكلات وفعالية GDG Google." },
+      { icon:"fa-brands fa-linkedin",     title:"إدارة صفحة IEEE Comsoc",      desc:"إدارة الصفحة الرسمية لـ IEEE Comsoc — تصميم المحتوى وإدارة المنشورات والريلز." },
+      { icon:"fa-solid fa-palette",       title:"الدعم الإعلامي لـ ITeam",    desc:"تقديم الدعم الإعلامي والتصميم الجرافيكي لفريق ITeam بالتعاون مع أعضاء الفريق." }
+    ],
+    s6:{ num:"٠٦ —", title:"عني" },
     about:[
       "أنا ملك عاطف، خريجة هندسة برمجيات أعشق بناء الأشياء — سواء كانت تطبيق ويب أو نظاماً ذكياً أو روبوتاً حقيقياً. خبرتي التقنية تمتد من واجهات React وAPIs بـ ASP.NET وصولاً إلى مشاريع الأجهزة بالأردوينو.",
       "ما يحركني هو تقاطع البرمجيات مع الأثر الحقيقي. مشروع 'الطريق الآمن' يستخدم الذكاء الاصطناعي لربط المواطنين بالجهات المختصة وتحسين سلامة الطرق — هذا هو نوع العمل الذي أريد الاستمرار فيه.",
       "أنا حالياً متاحة للفرص الوظيفية في تطوير الويب أو هندسة الخوادم أو تطوير البرمجيات."
     ],
     stats:[
-      { val:"٥+",   lbl:"لغات وأطر عمل" },
-      { val:"٣",    lbl:"مشاريع أساسية" },
+      { val:"٦+",   lbl:"شهادات ودورات" },
+      { val:"٤",    lbl:"مشاريع أساسية" },
       { val:"Full", lbl:"مطورة Full Stack" },
       { val:"٢٠٢٦", lbl:"متاحة الآن" }
     ],
-    s5:{ num:"٠٥ —", title:"تواصلي معي" },
+    s7:{ num:"٠٧ —", title:"تواصلي معي" },
     footerCopy:"© ٢٠٢٦ · صُمّم وبُني بعناية",
     footerName:"ملك عاطف"
   }
@@ -416,6 +489,7 @@ function render() {
   document.querySelector(".btn-gh-text").textContent = d.btnGH;
   const photoP = document.querySelector(".photo-placeholder p"); if (photoP) photoP.textContent = d.photoNote;
 
+  // Skills
   document.querySelector(".s1-num").textContent = d.s1.num;
   document.querySelector(".s1-title").textContent = d.s1.title;
   document.querySelectorAll(".skill-card").forEach((c,i) => {
@@ -425,6 +499,7 @@ function render() {
     c.querySelector(".tags").innerHTML = s.tags.map(t=>`<span class="tag">${t}</span>`).join("");
   });
 
+  // Projects
   document.querySelector(".s2-num").textContent = d.s2.num;
   document.querySelector(".s2-title").textContent = d.s2.title;
   document.querySelectorAll(".project-row").forEach((r,i) => {
@@ -436,8 +511,23 @@ function render() {
     r.querySelector(".tags").innerHTML = p.tags.map(t=>`<span class="tag">${t}</span>`).join("");
   });
 
+  // Certifications
   document.querySelector(".s3-num").textContent = d.s3.num;
   document.querySelector(".s3-title").textContent = d.s3.title;
+  document.querySelectorAll(".cert-card").forEach((c,i) => {
+    const cert = d.certs[i]; if (!cert) return;
+    c.querySelector(".cert-card-icon").innerHTML = `<i class="${cert.icon}"></i>`;
+    c.querySelector(".cert-name").textContent = cert.name;
+    c.querySelector(".cert-issuer").textContent = cert.issuer;
+    c.querySelector(".cert-date").textContent = cert.date;
+    const dur = c.querySelector(".cert-duration");
+    if (cert.duration) { dur.textContent = cert.duration; dur.style.display = "inline-block"; }
+    else { dur.style.display = "none"; }
+  });
+
+  // Hardware
+  document.querySelector(".s4-num").textContent = d.s4.num;
+  document.querySelector(".s4-title").textContent = d.s4.title;
   document.querySelectorAll(".exp-card").forEach((c,i) => {
     const h = d.hw[i]; if (!h) return;
     c.querySelector(".exp-card-icon").innerHTML = `<i class="${h.icon}"></i>`;
@@ -445,8 +535,19 @@ function render() {
     c.querySelector("p").textContent = h.desc;
   });
 
-  document.querySelector(".s4-num").textContent = d.s4.num;
-  document.querySelector(".s4-title").textContent = d.s4.title;
+  // Achievements
+  document.querySelector(".s5-num").textContent = d.s5.num;
+  document.querySelector(".s5-title").textContent = d.s5.title;
+  document.querySelectorAll(".achieve-item").forEach((item,i) => {
+    const a = d.achievements[i]; if (!a) return;
+    item.querySelector(".achieve-icon").innerHTML = `<i class="${a.icon}"></i>`;
+    item.querySelector(".achieve-text strong").textContent = a.title;
+    item.querySelector(".achieve-text span").textContent = a.desc;
+  });
+
+  // About
+  document.querySelector(".s6-num").textContent = d.s6.num;
+  document.querySelector(".s6-title").textContent = d.s6.title;
   document.querySelectorAll(".about-text p").forEach((p,i) => { p.textContent = d.about[i]||""; });
   document.querySelectorAll(".stat-item").forEach((s,i) => {
     const st = d.stats[i]; if (!st) return;
@@ -454,8 +555,9 @@ function render() {
     s.querySelector(".stat-lbl").textContent = st.lbl;
   });
 
-  document.querySelector(".s5-num").textContent = d.s5.num;
-  document.querySelector(".s5-title").textContent = d.s5.title;
+  // Contact
+  document.querySelector(".s7-num").textContent = d.s7.num;
+  document.querySelector(".s7-title").textContent = d.s7.title;
 
   document.querySelector(".footer-copy").textContent = d.footerCopy;
   document.querySelector(".f-name").textContent = d.footerName;
@@ -472,6 +574,7 @@ document.addEventListener("DOMContentLoaded", render);
     <ul class="nav-links">
       <li><a href="#skills"></a></li>
       <li><a href="#projects"></a></li>
+      <li><a href="#certifications"></a></li>
       <li><a href="#hardware"></a></li>
       <li><a href="#about"></a></li>
       <li><a href="#contact"></a></li>
@@ -522,11 +625,24 @@ document.addEventListener("DOMContentLoaded", render);
       <div class="project-row"><div class="project-num"></div><div><div class="project-type"></div><div class="project-name"></div><p class="project-desc"></p><div class="tags"></div></div><div class="project-arrow"><i class="fa-solid fa-arrow-right"></i></div></div>
       <div class="project-row"><div class="project-num"></div><div><div class="project-type"></div><div class="project-name"></div><p class="project-desc"></p><div class="tags"></div></div><div class="project-arrow"><i class="fa-solid fa-arrow-right"></i></div></div>
       <div class="project-row"><div class="project-num"></div><div><div class="project-type"></div><div class="project-name"></div><p class="project-desc"></p><div class="tags"></div></div><div class="project-arrow"><i class="fa-solid fa-arrow-right"></i></div></div>
+      <div class="project-row"><div class="project-num"></div><div><div class="project-type"></div><div class="project-name"></div><p class="project-desc"></p><div class="tags"></div></div><div class="project-arrow"><i class="fa-solid fa-arrow-right"></i></div></div>
+    </div>
+  </section>
+
+  <section id="certifications">
+    <div class="sec-head"><span class="sec-num s3-num"></span><h2 class="sec-title s3-title"></h2></div>
+    <div class="cert-grid">
+      <div class="cert-card"><div class="cert-card-icon">◈</div><div class="cert-name"></div><div class="cert-issuer"></div><div class="cert-date"></div><span class="cert-duration"></span></div>
+      <div class="cert-card"><div class="cert-card-icon">◈</div><div class="cert-name"></div><div class="cert-issuer"></div><div class="cert-date"></div><span class="cert-duration"></span></div>
+      <div class="cert-card"><div class="cert-card-icon">◈</div><div class="cert-name"></div><div class="cert-issuer"></div><div class="cert-date"></div><span class="cert-duration"></span></div>
+      <div class="cert-card"><div class="cert-card-icon">◈</div><div class="cert-name"></div><div class="cert-issuer"></div><div class="cert-date"></div><span class="cert-duration"></span></div>
+      <div class="cert-card"><div class="cert-card-icon">◈</div><div class="cert-name"></div><div class="cert-issuer"></div><div class="cert-date"></div><span class="cert-duration"></span></div>
+      <div class="cert-card"><div class="cert-card-icon">◈</div><div class="cert-name"></div><div class="cert-issuer"></div><div class="cert-date"></div><span class="cert-duration"></span></div>
     </div>
   </section>
 
   <section id="hardware">
-    <div class="sec-head"><span class="sec-num s3-num"></span><h2 class="sec-title s3-title"></h2></div>
+    <div class="sec-head"><span class="sec-num s4-num"></span><h2 class="sec-title s4-title"></h2></div>
     <div class="exp-grid">
       <div class="exp-card"><div class="exp-card-icon">⚙</div><h3></h3><p></p></div>
       <div class="exp-card"><div class="exp-card-icon">⚙</div><h3></h3><p></p></div>
@@ -535,8 +651,18 @@ document.addEventListener("DOMContentLoaded", render);
     </div>
   </section>
 
+  <section id="achievements">
+    <div class="sec-head"><span class="sec-num s5-num"></span><h2 class="sec-title s5-title"></h2></div>
+    <div class="achieve-list">
+      <div class="achieve-item"><div class="achieve-icon"></div><div class="achieve-text"><strong></strong><span></span></div></div>
+      <div class="achieve-item"><div class="achieve-icon"></div><div class="achieve-text"><strong></strong><span></span></div></div>
+      <div class="achieve-item"><div class="achieve-icon"></div><div class="achieve-text"><strong></strong><span></span></div></div>
+      <div class="achieve-item"><div class="achieve-icon"></div><div class="achieve-text"><strong></strong><span></span></div></div>
+    </div>
+  </section>
+
   <section id="about">
-    <div class="sec-head"><span class="sec-num s4-num"></span><h2 class="sec-title s4-title"></h2></div>
+    <div class="sec-head"><span class="sec-num s6-num"></span><h2 class="sec-title s6-title"></h2></div>
     <div class="about-layout">
       <div class="about-text"><p></p><p></p><p></p></div>
       <div class="about-stats">
@@ -549,8 +675,13 @@ document.addEventListener("DOMContentLoaded", render);
   </section>
 
   <section id="contact">
-    <div class="sec-head"><span class="sec-num s5-num"></span><h2 class="sec-title s5-title"></h2></div>
+    <div class="sec-head"><span class="sec-num s7-num"></span><h2 class="sec-title s7-title"></h2></div>
     <div class="contact-grid">
+      <a class="contact-card" href="tel:+962788625796">
+        <div class="contact-card-icon"><i class="fa-solid fa-phone"></i></div>
+        <div class="contact-lbl">Phone</div>
+        <div class="contact-val">+962 788 625 796</div>
+      </a>
       <a class="contact-card" href="mailto:malakatef614@gmail.com">
         <div class="contact-card-icon"><i class="fa-solid fa-envelope"></i></div>
         <div class="contact-lbl">Email</div>
